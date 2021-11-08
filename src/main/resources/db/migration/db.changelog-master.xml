@@ -1,0 +1,76 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 
+   http://www.liquibase.org/xml/ns/dbchangelog 
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet author="xamcross" id="1">
+        <createTable tableName="app_user">
+            <column name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="app_user_pkey" />
+            </column>
+            <column name="name" type="VARCHAR(250)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+        <createSequence cycle="true" incrementBy="1" maxValue="1000" minValue="1" schemaName="public" sequenceName="app_user_seq" startValue="1" />
+    </changeSet>
+    <changeSet author="xamcross" id="2">
+        <createTable tableName="live_order">
+            <column name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="live_order_pkey" />
+            </column>
+            <column name="price" type="INTEGER">
+                <constraints nullable="false" />
+            </column>
+            <column name="quantity" type="DECIMAL(20, 2)">
+                <constraints nullable="false" />
+            </column>
+            <column name="type" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="issuer_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createSequence cycle="true" incrementBy="1" maxValue="1000" minValue="1" schemaName="public" sequenceName="live_order_seq" startValue="1" />
+        <addForeignKeyConstraint baseColumnNames="issuer_id" baseTableName="live_order" constraintName="fk_live_order_app_user" referencedColumnNames="id" referencedTableName="app_user" referencedTableSchemaName="public" validate="true" />
+    </changeSet>
+    <changeSet author="xamcross" id="3">
+        <insert tableName="app_user">
+            <column name="id" value="1" />
+            <column name="name" value="Vasiliy" />
+        </insert>
+        <insert tableName="app_user">
+            <column name="id" value="2" />
+            <column name="name" value="Petr" />
+        </insert>
+        <insert tableName="live_order">
+            <column name="id" value="500" />
+            <column name="price" value="34" />
+            <column name="quantity" value="2.3" />
+            <column name="type" value="SELL" />
+            <column name="issuer_id" value="1" />
+        </insert>
+        <insert tableName="live_order">
+            <column name="id" value="501" />
+            <column name="price" value="11" />
+            <column name="quantity" value="5.0" />
+            <column name="type" value="SELL" />
+            <column name="issuer_id" value="1" />
+        </insert>
+        <insert tableName="live_order">
+            <column name="id" value="502" />
+            <column name="price" value="34" />
+            <column name="quantity" value="1" />
+            <column name="type" value="SELL" />
+            <column name="issuer_id" value="1" />
+        </insert>
+        <insert tableName="live_order">
+            <column name="id" value="503" />
+            <column name="price" value="10" />
+            <column name="quantity" value="2.3" />
+            <column name="type" value="BUY" />
+            <column name="issuer_id" value="1" />
+        </insert>
+    </changeSet>
+</databaseChangeLog>

@@ -3,6 +3,8 @@ package com.example.liveOrderBoard.controller;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import javax.validation.Valid;
+
 import com.example.liveOrderBoard.model.LiveBoardDto;
 import com.example.liveOrderBoard.model.OrderDto;
 import com.example.liveOrderBoard.model.RegisterOrderRequest;
@@ -26,7 +28,7 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping
-    public CompletableFuture<OrderDto> registerNewOrder(@RequestBody final RegisterOrderRequest request) {
+    public CompletableFuture<OrderDto> registerNewOrder(@Valid @RequestBody final RegisterOrderRequest request) {
         return orderService.registerNewOrder(request.getOrder(), request.getUser());
     }
 

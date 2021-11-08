@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -18,7 +19,8 @@ import lombok.Setter;
 @Table(name = "live_order")
 public class Order {
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name = "live_order_seq", initialValue = 1, sequenceName = "live_order_seq", allocationSize = 1)
+    @GeneratedValue(generator = "live_order_seq")
     private long id;
 
     private int price;
